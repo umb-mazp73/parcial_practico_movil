@@ -63,3 +63,11 @@ export const useUltimasFacturas = () => {
     queryFn: () => facturaService.getUltimasFacturas(5),
   });
 };
+
+export const useChartData = () => {
+  return useQuery({
+    queryKey: ['chartData'],
+    queryFn: facturaService.getChartData,
+    refetchInterval: 30000,
+  });
+};

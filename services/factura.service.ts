@@ -126,4 +126,36 @@ export const facturaService = {
     if (error) throw error;
     return data ?? [];
   },
+
+  async getChartData() {
+    const { data, error } = await supabase
+      .from('facturas')
+      .select('total, estado, created_at');
+    if (error) throw error;
+    const facturas = data ?? [];
+
+    const porEstado = {
+      PAGADA: facturas.filter((f) => f.estado === 'PAGADA').length,
+      PENDIENTE: facturas.filter((f) => f.estado === 'PENDIENTE').length,
+      CANCELADA: facturas.filter((f) => f.estado === 'CANCELADA').length,
+    };
+
+    const now = new Date();
+    const ingresosMensuales = Array.from({ length: 6 }, (_, i) => {
+      const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1);
+      const year = d.getFullYear();
+      const month = d.getMonth();
+      const label = d.toLocaleString('es', { month: 'short' });
+      const total = facturas
+        .filter((f) => {
+          if (!f.created_at) return false;
+          const fd = new Date(f.created_at);
+          return fd.getFullYear() === year && fd.getMonth() === month && f.estado === 'PAGADA';
+        })
+        .reduce((acc, f) => acc + Number(f.total), 0);
+      return { label, total };
+    });
+
+    return { porEstado, ingresosMensuales };
+  },
 };
