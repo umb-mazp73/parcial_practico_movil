@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useArticulo } from '../../hooks/useArticulos';
-import { AppCard } from '../../components/ui/AppCard';
-import { SkeletonLoader } from '../../components/ui/SkeletonLoader';
-import { formatCurrency, formatDate } from '../../utils/formatters';
+import { useArticulo } from '../../../hooks/useArticulos';
+import { AppCard } from '../../../components/ui/AppCard';
+import { SkeletonLoader } from '../../../components/ui/SkeletonLoader';
+import { formatCurrency, formatDate } from '../../../utils/formatters';
 
 export default function DetalleArticuloScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

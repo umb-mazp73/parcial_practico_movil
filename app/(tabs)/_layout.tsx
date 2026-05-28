@@ -19,9 +19,7 @@ export default function TabsLayout() {
           fontSize: 11,
           fontWeight: '600',
         },
-        headerStyle: { backgroundColor: '#1e40af' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: '700' },
+        headerShown: false,
       }}
     >
       <Tabs.Screen
@@ -29,7 +27,6 @@ export default function TabsLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color, size }) => <Ionicons name="grid-outline" size={size} color={color} />,
-          headerTitle: 'Dashboard',
         }}
       />
       <Tabs.Screen
@@ -37,7 +34,6 @@ export default function TabsLayout() {
         options={{
           title: 'Clientes',
           tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={size} color={color} />,
-          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -45,7 +41,6 @@ export default function TabsLayout() {
         options={{
           title: 'Artículos',
           tabBarIcon: ({ color, size }) => <Ionicons name="cube-outline" size={size} color={color} />,
-          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -53,7 +48,6 @@ export default function TabsLayout() {
         options={{
           title: 'Facturas',
           tabBarIcon: ({ color, size }) => <Ionicons name="receipt-outline" size={size} color={color} />,
-          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -61,7 +55,6 @@ export default function TabsLayout() {
         options={{
           title: 'Config',
           tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" size={size} color={color} />,
-          headerTitle: 'Configuración',
         }}
       />
     </Tabs>

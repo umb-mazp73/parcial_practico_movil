@@ -11,14 +11,14 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useClientes } from '../../hooks/useClientes';
-import { useArticulos } from '../../hooks/useArticulos';
-import { useCreateFactura } from '../../hooks/useFacturas';
-import { useCartStore } from '../../store/useCartStore';
-import { AppCard } from '../../components/ui/AppCard';
-import { AppButton } from '../../components/ui/AppButton';
-import { formatCurrency } from '../../utils/formatters';
-import { Articulo, Cliente } from '../../types';
+import { useClientes } from '../../../hooks/useClientes';
+import { useArticulos } from '../../../hooks/useArticulos';
+import { useCreateFactura } from '../../../hooks/useFacturas';
+import { useCartStore } from '../../../store/useCartStore';
+import { AppCard } from '../../../components/ui/AppCard';
+import { AppButton } from '../../../components/ui/AppButton';
+import { formatCurrency } from '../../../utils/formatters';
+import { Articulo, Cliente } from '../../../types';
 
 export default function CrearFacturaScreen() {
   const router = useRouter();

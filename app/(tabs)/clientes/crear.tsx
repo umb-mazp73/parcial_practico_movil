@@ -4,9 +4,9 @@ import { useRouter } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { AppInput } from '../../components/ui/AppInput';
-import { AppButton } from '../../components/ui/AppButton';
-import { useCreateCliente } from '../../hooks/useClientes';
+import { AppInput } from '../../../components/ui/AppInput';
+import { AppButton } from '../../../components/ui/AppButton';
+import { useCreateCliente } from '../../../hooks/useClientes';
 
 const schema = z.object({
   nombre: z.string().min(2, 'Mínimo 2 caracteres').max(100),

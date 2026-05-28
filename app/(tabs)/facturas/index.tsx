@@ -2,15 +2,15 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, RefreshControl, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useFacturas, useDeleteFactura } from '../../hooks/useFacturas';
-import { SearchBar } from '../../components/ui/SearchBar';
-import { EmptyState } from '../../components/ui/EmptyState';
-import { SkeletonCard } from '../../components/ui/SkeletonLoader';
-import { FAB } from '../../components/ui/FAB';
-import { ConfirmModal } from '../../components/ui/ConfirmModal';
-import { EstadoBadge } from '../../components/ui/EstadoBadge';
-import { Factura } from '../../types';
-import { formatCurrency, formatDate } from '../../utils/formatters';
+import { useFacturas, useDeleteFactura } from '../../../hooks/useFacturas';
+import { SearchBar } from '../../../components/ui/SearchBar';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { SkeletonCard } from '../../../components/ui/SkeletonLoader';
+import { FAB } from '../../../components/ui/FAB';
+import { ConfirmModal } from '../../../components/ui/ConfirmModal';
+import { EstadoBadge } from '../../../components/ui/EstadoBadge';
+import { Factura } from '../../../types';
+import { formatCurrency, formatDate } from '../../../utils/formatters';
 
 export default function FacturasScreen() {
   const router = useRouter();

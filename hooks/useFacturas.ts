@@ -33,7 +33,11 @@ export const useUpdateEstadoFactura = () => {
   return useMutation({
     mutationFn: ({ id, estado }: { id: string; estado: 'PENDIENTE' | 'PAGADA' | 'CANCELADA' }) =>
       facturaService.updateEstado(id, estado),
-    onSuccess: () => qc.invalidateQueries({ queryKey: [QUERY_KEY] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: [QUERY_KEY] });
+      qc.invalidateQueries({ queryKey: ['articulos'] });
+      qc.invalidateQueries({ queryKey: ['dashboard'] });
+    },
   });
 };
 

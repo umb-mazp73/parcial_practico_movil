@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useClientes, useDeleteCliente } from '../../hooks/useClientes';
-import { SearchBar } from '../../components/ui/SearchBar';
-import { EmptyState } from '../../components/ui/EmptyState';
-import { SkeletonCard } from '../../components/ui/SkeletonLoader';
-import { FAB } from '../../components/ui/FAB';
-import { ConfirmModal } from '../../components/ui/ConfirmModal';
-import { Cliente } from '../../types';
+import { useClientes, useDeleteCliente } from '../../../hooks/useClientes';
+import { SearchBar } from '../../../components/ui/SearchBar';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { SkeletonCard } from '../../../components/ui/SkeletonLoader';
+import { FAB } from '../../../components/ui/FAB';
+import { ConfirmModal } from '../../../components/ui/ConfirmModal';
+import { Cliente } from '../../../types';
 
 export default function ClientesScreen() {
   const router = useRouter();

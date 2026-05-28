@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, ScrollView, Alert } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
-import { useArticulo, useUpdateArticulo } from '../../../hooks/useArticulos';
+import { useCreateArticulo } from '../../../hooks/useArticulos';
 
 const schema = z.object({
   nombre: z.string().min(2, 'Mínimo 2 caracteres').max(150),
@@ -17,34 +17,22 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function EditarArticuloScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+export default function CrearArticuloScreen() {
   const router = useRouter();
-  const { data: articulo } = useArticulo(id);
-  const updateMutation = useUpdateArticulo();
+  const createMutation = useCreateArticulo();
 
-  const { control, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: { stock: 0, precio: 0 },
   });
-
-  useEffect(() => {
-    if (articulo) {
-      reset({
-        nombre: articulo.nombre,
-        descripcion: articulo.descripcion ?? '',
-        precio: articulo.precio,
-        stock: articulo.stock,
-      });
-    }
-  }, [articulo, reset]);
 
   const onSubmit = async (data: FormData) => {
     try {
-      await updateMutation.mutateAsync({ id, data });
-      Alert.alert('Éxito', 'Artículo actualizado correctamente');
+      await createMutation.mutateAsync(data);
+      Alert.alert('Éxito', 'Artículo creado correctamente');
       router.back();
     } catch (e: any) {
-      Alert.alert('Error', e.message ?? 'No se pudo actualizar el artículo');
+      Alert.alert('Error', e.message ?? 'No se pudo crear el artículo');
     }
   };
 
@@ -54,14 +42,14 @@ export default function EditarArticuloScreen() {
         control={control}
         name="nombre"
         render={({ field: { onChange, value } }) => (
-          <AppInput label="Nombre *" value={value} onChangeText={onChange} error={errors.nombre?.message} />
+          <AppInput label="Nombre *" value={value} onChangeText={onChange} error={errors.nombre?.message} placeholder="Laptop Dell XPS" />
         )}
       />
       <Controller
         control={control}
         name="descripcion"
         render={({ field: { onChange, value } }) => (
-          <AppInput label="Descripción" value={value} onChangeText={onChange} multiline numberOfLines={3} />
+          <AppInput label="Descripción" value={value} onChangeText={onChange} placeholder="Descripción del artículo..." multiline numberOfLines={3} />
         )}
       />
       <Controller
@@ -74,6 +62,7 @@ export default function EditarArticuloScreen() {
             onChangeText={onChange}
             error={errors.precio?.message}
             keyboardType="decimal-pad"
+            placeholder="0.00"
           />
         )}
       />
@@ -87,14 +76,15 @@ export default function EditarArticuloScreen() {
             onChangeText={onChange}
             error={errors.stock?.message}
             keyboardType="number-pad"
+            placeholder="0"
           />
         )}
       />
       <View className="mt-2">
         <AppButton
-          title="Actualizar Artículo"
+          title="Guardar Artículo"
           onPress={handleSubmit(onSubmit)}
-          loading={updateMutation.isPending}
+          loading={createMutation.isPending}
           fullWidth
         />
       </View>

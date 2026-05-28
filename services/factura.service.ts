@@ -48,10 +48,44 @@ export const facturaService = {
     return factura;
   },
 
-  async updateEstado(id: string, estado: 'PENDIENTE' | 'PAGADA' | 'CANCELADA'): Promise<Factura> {
+  async updateEstado(id: string, nuevoEstado: 'PENDIENTE' | 'PAGADA' | 'CANCELADA'): Promise<Factura> {
+    // Fetch current estado + detalles in one query
+    const { data: actual, error: fetchError } = await supabase
+      .from('facturas')
+      .select('estado, detalle_factura(articulo_id, cantidad)')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const estadoAnterior = actual.estado as 'PENDIENTE' | 'PAGADA' | 'CANCELADA';
+    const detalles = actual.detalle_factura as { articulo_id: string; cantidad: number }[];
+
+    const descuenta = nuevoEstado === 'PAGADA' && estadoAnterior !== 'PAGADA';
+    const restaura = estadoAnterior === 'PAGADA' && nuevoEstado !== 'PAGADA';
+
+    if ((descuenta || restaura) && detalles?.length) {
+      for (const detalle of detalles) {
+        const { data: art } = await supabase
+          .from('articulos')
+          .select('stock')
+          .eq('id', detalle.articulo_id)
+          .single();
+        if (!art) continue;
+
+        const nuevoStock = descuenta
+          ? Math.max(0, art.stock - detalle.cantidad)
+          : art.stock + detalle.cantidad;
+
+        await supabase
+          .from('articulos')
+          .update({ stock: nuevoStock })
+          .eq('id', detalle.articulo_id);
+      }
+    }
+
     const { data, error } = await supabase
       .from('facturas')
-      .update({ estado })
+      .update({ estado: nuevoEstado })
       .eq('id', id)
       .select()
       .single();

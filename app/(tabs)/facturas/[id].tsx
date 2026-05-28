@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Modal, FlatList, Alert } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useFactura, useUpdateEstadoFactura } from '../../hooks/useFacturas';
-import { AppCard } from '../../components/ui/AppCard';
-import { EstadoBadge } from '../../components/ui/EstadoBadge';
-import { SkeletonLoader } from '../../components/ui/SkeletonLoader';
-import { formatCurrency, formatDate } from '../../utils/formatters';
-import { DetalleFactura, EstadoFactura } from '../../types';
+import { useFactura, useUpdateEstadoFactura } from '../../../hooks/useFacturas';
+import { AppCard } from '../../../components/ui/AppCard';
+import { EstadoBadge } from '../../../components/ui/EstadoBadge';
+import { SkeletonLoader } from '../../../components/ui/SkeletonLoader';
+import { formatCurrency, formatDate } from '../../../utils/formatters';
+import { DetalleFactura, EstadoFactura } from '../../../types';
 
 const ESTADOS: EstadoFactura[] = ['PENDIENTE', 'PAGADA', 'CANCELADA'];
 

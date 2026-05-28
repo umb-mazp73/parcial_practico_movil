@@ -10,9 +10,9 @@ export default function ArticulosLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ title: 'Artículos' }} />
-      <Stack.Screen name="crear" options={{ title: 'Nuevo Artículo', presentation: 'modal' }} />
+      <Stack.Screen name="crear" options={{ title: 'Nuevo Artículo' }} />
       <Stack.Screen name="[id]" options={{ title: 'Detalle Artículo' }} />
-      <Stack.Screen name="editar/[id]" options={{ title: 'Editar Artículo', presentation: 'modal' }} />
+      <Stack.Screen name="editar/[id]" options={{ title: 'Editar Artículo' }} />
     </Stack>
   );
 }

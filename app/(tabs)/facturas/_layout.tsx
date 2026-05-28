@@ -10,7 +10,7 @@ export default function FacturasLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ title: 'Facturas' }} />
-      <Stack.Screen name="crear" options={{ title: 'Nueva Factura', presentation: 'modal' }} />
+      <Stack.Screen name="crear" options={{ title: 'Nueva Factura' }} />
       <Stack.Screen name="[id]" options={{ title: 'Detalle Factura' }} />
     </Stack>
   );
